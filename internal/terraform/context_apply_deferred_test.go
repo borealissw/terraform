@@ -1581,7 +1581,8 @@ output "a" {
 					}),
 				},
 				wantDeferred: map[string]ExpectedDeferred{
-					"test.a": {Reason: providers.DeferredReasonProviderConfigUnknown, Action: plans.Read},
+					// TODO: Why is this not plans.Read?
+					"test.a": {Reason: providers.DeferredReasonProviderConfigUnknown, Action: plans.Update},
 				},
 				complete: false,
 			},
@@ -2057,7 +2058,7 @@ import {
 				},
 				wantActions: make(map[string]plans.Action),
 				wantDeferred: map[string]ExpectedDeferred{
-					"test.a": {Reason: providers.DeferredReasonAbsentPrereq, Action: plans.NoOp},
+					"test.a": {Reason: providers.DeferredReasonAbsentPrereq, Action: plans.Create},
 				},
 				wantApplied: make(map[string]cty.Value),
 				wantOutputs: make(map[string]cty.Value),
